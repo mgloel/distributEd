@@ -1,10 +1,4 @@
-
 # This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-
 library(shiny)
 
 shinyServer(function(input, output) {
@@ -12,7 +6,20 @@ shinyServer(function(input, output) {
   output$distPlot <- renderPlot({
 
     # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
+    ### if distribution...
+    x = switch(
+      input$distribution,
+      "uniform" = runif(10000),
+      "normal" = rnorm(10000),
+      "poisson" = rpois(10000, 2),
+      "gamma" = rgamma(10000, 2),
+      "geometric" = rgeom(10000, 0.2),
+      "binomial" = rbinom(10000, 5, 0.3)
+    )
+    
+
+    
+    #x    <- faithful[, 2]
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
 
     # draw the histogram with the specified number of bins
