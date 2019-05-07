@@ -11,7 +11,7 @@ shinyServer(function(input, output) {
       input$distribution,
       "uniform" = runif(input$n),
       "normal" = rnorm(input$n),
-      "poisson" = rpois(input$n, 2),
+      "poisson" = rpois(input$n, input$lambda),
       "gamma" = rgamma(input$n, 2),
       "geometric" = rgeom(input$n, 0.2),
       "binomial" = rbinom(input$n, 5, 0.3)
